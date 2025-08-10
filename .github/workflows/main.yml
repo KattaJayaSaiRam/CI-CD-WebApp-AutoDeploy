@@ -26,5 +26,3 @@ jobs:
 
       - name: Deploy to production
         run: echo "Deploying from MAIN branch"
-
-
