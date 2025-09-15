@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-      # ✅ Week 5: Run backup script from Week 3
+      # Week 5: Run backup script from Week 3
       - name: Run backup script
         run: bash backup.sh
       - name: Lint JavaScript
