@@ -19,21 +19,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      #Week 5: Validate HTML files
+      # Week 5: Validate HTML files (recursive)
       - name: Validate HTML files
         run: |
           sudo apt-get update
           sudo apt-get install -y tidy
-          tidy -qe *.html || true
+          find . -name "*.html" -type f -exec tidy -qe {} \; || true
 
-      #Week 5: Lint CSS
+      #Week 5: Lint CSS (recursive)
       - name: Lint CSS
         run: |
           npm install -g stylelint
           stylelint "**/*.css" || true
 
+      #Week 5: Lint JavaScript (recursive)
+      - name: Lint JavaScript
+        run: |
+          npm install -g eslint
           eslint "**/*.js" || true
 
+      #Week 5: Run backup script from Week 3
+      - name: Run backup script
+        run: bash backup.sh
 
       # Original branch-specific test step
       - name: Run tests for dev
@@ -41,20 +48,13 @@ jobs:
         run: echo "Running tests on DEV branch"
 
   deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
         uses: actions/checkout@v3
 
       # Original branch-specific deploy step
       - name: Deploy from main
         if: github.ref == 'refs/heads/main'
         run: echo "Deploying from MAIN branch"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-      # Week 5: Run backup script from Week 3
-      - name: Run backup script
-        run: bash backup.sh
-      - name: Lint JavaScript
-        run: |
-          npm install -g eslint
-
 
