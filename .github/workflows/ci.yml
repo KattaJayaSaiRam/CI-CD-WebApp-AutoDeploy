@@ -1,17 +1,60 @@
-name: CI Pipeline
+name: Branch-Aware CI Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - staging
+      - dev
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - staging
+      - dev
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Run echo
-      run: echo "CI Pipeline triggered!"
+      # ✅ Week 5: Validate HTML files
+      - name: Validate HTML files
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tidy
+          tidy -qe *.html || true
+
+      # ✅ Week 5: Lint CSS
+      - name: Lint CSS
+        run: |
+          npm install -g stylelint
+          stylelint "**/*.css" || true
+
+          eslint "**/*.js" || true
+
+
+      # Original branch-specific test step
+      - name: Run tests for dev
+        if: github.ref == 'refs/heads/dev'
+        run: echo "Running tests on DEV branch"
+
+  deploy:
+        uses: actions/checkout@v3
+
+      # Original branch-specific deploy step
+      - name: Deploy from main
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploying from MAIN branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+      # ✅ Week 5: Run backup script from Week 3
+      - name: Run backup script
+        run: bash backup.sh
+      - name: Lint JavaScript
+        run: |
+          npm install -g eslint
+
+
