@@ -19,14 +19,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # ✅ Week 5: Validate HTML files
+      #Week 5: Validate HTML files
       - name: Validate HTML files
         run: |
           sudo apt-get update
           sudo apt-get install -y tidy
           tidy -qe *.html || true
 
-      # ✅ Week 5: Lint CSS
+      #Week 5: Lint CSS
       - name: Lint CSS
         run: |
           npm install -g stylelint
