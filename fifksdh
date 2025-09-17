@@ -1,0 +1,23 @@
+[33mcommit cfea5174b3ee5b750f58df5586e7188232cd95cf[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: KattaJayaSaiRam <2021wb86312@wilp.bits-pilani.ac.in>
+Date:   Sat Aug 9 23:41:24 2025 +0530
+
+    Add CI pipeline workflow
+
+[33mcommit 4bfa11a710c7e6e3f70bb3fc7846a10cfc07f136[m
+Author: KattaJayaSaiRam <2021wb86312@wilp.bits-pilani.ac.in>
+Date:   Sat Aug 9 23:31:04 2025 +0530
+
+    Add CI workflow for Node.js app
+
+[33mcommit 68b0911765aade15d385151a53add931d1727706[m
+Author: KattaJayaSaiRam <2021wb86312@wilp.bits-pilani.ac.in>
+Date:   Sat Aug 9 22:58:32 2025 +0530
+
+    Add placeholder files to folders
+
+[33mcommit cb0703ff41a0939f2f0c32fc2476df2c184c356e[m
+Author: KattaJayaSaiRam <2021wb86312@wilp.bits-pilani.ac.in>
+Date:   Sat Aug 9 19:54:59 2025 +0530
+
+    Initial commit
