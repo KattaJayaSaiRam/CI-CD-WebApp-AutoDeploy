@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    select {
+      padding: 5px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, Teacher</h1>
+
+    <label for="filter-student">Filter by Student:</label>
+    <select id="filter-student">
+      <option value="">All</option>
+    </select>
+
+    <label for="filter-subject">Filter by Exam Name:</label>
+    <select id="filter-subject">
+      <option value="">All</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Subject</th>
+          <th>Attempted</th>
+          <th>Marks</th>
+        </tr>
+      </thead>
+      <tbody id="report-body"></tbody>
+    </table>
+
+    <button onclick="location.href='index.html'">Logout</button>
+  </div>
+  <script src="scripts_teacher.js"></script>
+</body>
+</html>
