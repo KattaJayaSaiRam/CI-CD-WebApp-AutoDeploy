@@ -2,14 +2,10 @@ name: Branch-Aware CI Pipeline
 
 on:
   push:
-<<<<<<< HEAD
     branches:
       - main
       - staging
       - dev
-=======
-    branches: [main, dev, staging]
->>>>>>> 0d94827bc567ed9b1f107836cd78b773ae06e135
   pull_request:
     branches:
       - main
@@ -17,18 +13,12 @@ on:
       - dev
 
 jobs:
-<<<<<<< HEAD
   run-tests:
-=======
-  test-dev:
-    if: github.ref == 'refs/heads/dev'
->>>>>>> 0d94827bc567ed9b1f107836cd78b773ae06e135
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-<<<<<<< HEAD
       # Week 5: Validate HTML files (recursive)
       - name: Validate HTML files
         run: |
@@ -58,26 +48,12 @@ jobs:
         run: echo "Running tests on DEV branch"
 
   deploy:
-=======
-      - name: Run tests for dev
-        run: echo "Running tests on DEV branch"
-
-  deploy-main:
-    if: github.ref == 'refs/heads/main'
->>>>>>> 0d94827bc567ed9b1f107836cd78b773ae06e135
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-<<<<<<< HEAD
       # Original branch-specific deploy step
       - name: Deploy from main
         if: github.ref == 'refs/heads/main'
         run: echo "Deploying from MAIN branch"
-=======
-      - name: Deploy to production
-        run: echo "Deploying from MAIN branch"
-
->>>>>>> 0d94827bc567ed9b1f107836cd78b773ae06e135
-
