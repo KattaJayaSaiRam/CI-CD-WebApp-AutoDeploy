@@ -1,32 +1,21 @@
 #!/bin/bash
-# backup.sh — Creates a timestamped backup archive of the quiz app
+set -e
 
-# === CONFIGURATION ===
-SOURCE_DIR="$(pwd)"                # Current directory (repo root)
-BACKUP_DIR="$SOURCE_DIR/backups"   # Backup folder inside repo
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S") # e.g., 20250916_001500
-BACKUP_FILE="quizapp_backup_$TIMESTAMP.tar.gz"
+SOURCE_DIR="$(pwd)"
+BACKUP_DIR="$SOURCE_DIR/backups"
+BACKUP_FILE="$(date +'%Y-%m-%d_%H-%M-%S')_quizapp_backup.tar.gz"
 
-# === CREATE BACKUP DIRECTORY IF NOT EXISTS ===
 mkdir -p "$BACKUP_DIR"
+echo "📦 Creating backup at: $BACKUP_DIR/$BACKUP_FILE"
 
-# === CREATE COMPRESSED BACKUP ===
-echo " Creating backup at: $BACKUP_DIR/$BACKUP_FILE"
 tar --exclude=".git" --exclude=".github" -czf "$BACKUP_DIR/$BACKUP_FILE" -C "$SOURCE_DIR" .
 
-# === VERIFY BACKUP ===
 if [ $? -eq 0 ]; then
-    echo "Backup created: $BACKUP_DIR/$BACKUP_FILE"
+    echo "Backup created successfully."
 else
     echo "Backup failed!"
     exit 1
 fi
-
-
-
-
-
-
 
 
 
