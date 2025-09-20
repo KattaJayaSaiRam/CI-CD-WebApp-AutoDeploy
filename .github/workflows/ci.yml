@@ -40,7 +40,7 @@ jobs:
 
       #Week 5: Run backup script from Week 3
       - name: Run backup script
-        run: bash QuizApp/backup.sh
+        run: bash ./QuizApp/backup.sh
 
       # Original branch-specific test step
       - name: Run tests for dev
