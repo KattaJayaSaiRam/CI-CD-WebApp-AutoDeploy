@@ -23,7 +23,7 @@ jobs:
         run: ls -l
 
       - name: Check backup.sh permissions
-        run: ls -l backup.sh
+        run: ls -l .github/QuizApp/backup.sh
 
       # Week 5: Validate HTML files (recursive)
       - name: Validate HTML files
@@ -46,7 +46,7 @@ jobs:
 
       #Week 5: Run backup script from Week 3
       - name: Run backup script
-        run: bash ./QuizApp/backup.sh
+        run: bash .github/QuizApp/backup.sh
 
       # Original branch-specific test step
       - name: Run tests for dev
