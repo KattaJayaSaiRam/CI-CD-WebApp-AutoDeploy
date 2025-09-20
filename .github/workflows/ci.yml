@@ -40,7 +40,7 @@ jobs:
 
       #Week 5: Run backup script from Week 3
       - name: Run backup script
-        run: backup.sh
+        run: bash backup.sh
 
       # Original branch-specific test step
       - name: Run tests for dev
