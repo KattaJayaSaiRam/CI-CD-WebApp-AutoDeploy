@@ -11,7 +11,8 @@ BACKUP_FILE="quizapp_backup_$TIMESTAMP.tar.gz"
 mkdir -p "$BACKUP_DIR"
 
 # === CREATE COMPRESSED BACKUP ===
-tar -czf "$BACKUP_DIR/$BACKUP_FILE" -C "$SOURCE_DIR" .
+echo " Creating backup at: $BACKUP_DIR/$BACKUP_FILE"
+tar --exclude=".git" --exclude=".github" -czf "$BACKUP_DIR/$BACKUP_FILE" -C "$SOURCE_DIR" .
 
 # === VERIFY BACKUP ===
 if [ $? -eq 0 ]; then
