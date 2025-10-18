@@ -3,7 +3,7 @@ name: CD to AWS EC2 via rsync
 
 on:
   workflow_run:
-    workflows: ["Branch-Aware CI Pipeline"]
+    workflows: ["CI Pipeline"]
     types:
       - completed
 
