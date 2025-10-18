@@ -1,31 +1,29 @@
-name: Rsync
+name: CD to AWS EC2 via rsync
 
 on:
   push:
     branches:
+      - main
       - dev
 
 jobs:
-  rsync:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install rsync
-      run: sudo apt-get install -y rsync
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
 
-    - name: Delay for 15 seconds
-      run: sleep 15
-
-    - name: Rsync via SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        rsync -avz --exclude='.git' -e "ssh -i ~/.ssh/id_rsa" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
-
+      - name: Deploy via rsync over SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
+     
     - name: Rebuild and run Docker container
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
