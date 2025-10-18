@@ -31,7 +31,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/CI-CD-WebApp-AutoDeploy
-            docker stop quizapp || true
-            docker rm quizapp || true
-            docker build -t quizapp .
-            docker run -d -p 80:80 quizapp
+          echo "Stopping old container"
+          docker stop quizapp || true
+          docker rm quizapp || true
+
+          echo "Rebuilding Docker image"
+          docker build -t quizapp .
+
+          echo "Running new container on port 80"
+          docker run -d -p 80:80 --name quizapp quizapp
