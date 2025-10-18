@@ -1,9 +1,8 @@
-name: CD to AWS EC2 via rsync
+name: AWS EC2 via rsync
 
 on:
   push:
     branches:
-      - main
       - dev
 
 jobs:
@@ -17,12 +16,17 @@ jobs:
       - name: Install rsync
         run: sudo apt-get update && sudo apt-get install -y rsync
 
-      - name: Deploy via rsync over SSH
+      - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} 2>/dev/null >> ~/.ssh/known_hosts
+
+      - name: Rsync files to EC2
+        continue-on-error: false
+        run: |
+          rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CICD-My-AutoDeploy
 
       - name: Restart Docker container on EC2
         uses: appleboy/ssh-action@v0.1.6
@@ -31,9 +35,5 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/CI-CD-WebApp-AutoDeploy
-            docker stop quizapp || true
-            docker rm quizapp || true
-            docker build -t quizapp .
-            docker run -d -p 80:80 quizapp
-
+            docker-compose -f /home/ubuntu/CICD-My-AutoDeploy/docker-compose.yml down
+            docker-compose -f /home/ubuntu/CICD-My-AutoDeploy/docker-compose.yml up --build -d
