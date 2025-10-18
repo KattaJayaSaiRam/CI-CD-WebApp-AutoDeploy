@@ -3,7 +3,6 @@ name: CD to AWS EC2 via rsync
 on:
   push:
     branches:
-      - main
       - dev
 
 jobs:
