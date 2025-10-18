@@ -31,7 +31,7 @@ jobs:
          username: ${{ secrets.EC2_USER }}
          key: ${{ secrets.EC2_SSH_KEY }}
          script: |
-          cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/QuizApp  # adjust folder if needed
+          cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/'Quiz App'  # adjust folder if needed
 
           # Stop and remove container if running
           docker stop quizapp || true
