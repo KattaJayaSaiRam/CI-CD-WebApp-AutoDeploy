@@ -42,9 +42,9 @@ jobs:
           docker rmi quizapp || true
           fi
 
-         # Build fresh image with no cache
-         docker build --no-cache -t quizapp .
+          # Build fresh image with no cache
+          docker build --no-cache -t quizapp .
 
-         # Run container
-         docker run -d -p 80:80 --name quizapp quizapp
+          # Run container
+          docker run -d -p 80:80 --name quizapp quizapp
 
