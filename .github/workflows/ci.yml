@@ -60,6 +60,6 @@ jobs:
         uses: actions/checkout@v3
 
       # Original branch-specific deploy step
-      - name: Deploy from main
-        if: github.ref == 'refs/heads/main'
-        run: echo "Deploying from MAIN branch"
+      - name: Deploy from dev
+        if: github.ref == 'refs/heads/dev'
+        run: echo "Deploying from dev branch"
