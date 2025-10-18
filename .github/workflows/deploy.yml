@@ -20,7 +20,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./CI-CD-WebApp-AutoDeploy/CI-CD-WebApp-AutoDeploy/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
+
 
       - name: Restart Docker container on EC2
         uses: appleboy/ssh-action@v0.1.6
@@ -34,3 +35,4 @@ jobs:
             docker stop quizapp || true
             docker rm quizapp || true
             docker run -d -p 80:80 quizapp
+
