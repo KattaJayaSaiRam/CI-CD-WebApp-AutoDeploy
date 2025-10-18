@@ -1,15 +1,13 @@
-# .github/workflows/deploy.yml
 name: CD to AWS EC2 via rsync
 
 on:
-  workflow_run:
-    workflows: ["Branch-Aware CI Pipeline"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+      - dev
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +23,6 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
-
       - name: Restart Docker container on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
