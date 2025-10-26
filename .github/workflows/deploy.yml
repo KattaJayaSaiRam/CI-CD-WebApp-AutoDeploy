@@ -8,6 +8,7 @@ on:
 jobs:
   sync-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout dev branch
         uses: actions/checkout@v2
@@ -17,13 +18,18 @@ jobs:
       - name: Install rsync
         run: sudo apt-get install -y rsync
 
+      - name: Write SSH key to file
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
+          chmod 600 key.pem
+
       - name: Sync repo to EC2
         run: |
           rsync -avz --delete \
             --exclude='.git*' \
-            --exclude='deployKey' \
-            -e "ssh -o StrictHostKeyChecking=no -i ./deployKey" \
-            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }}:/home/ubuntu
+            --exclude='key.pem' \
+            -e "ssh -o StrictHostKeyChecking=no -i key.pem" \
+            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
 
       - name: Restart Docker container
         uses: appleboy/ssh-action@v0.1.6
@@ -41,16 +47,13 @@ jobs:
             fi
 
             # Navigate to app folder
-            cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/.github/QuizApp
+            cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/QuizApp
 
             # Stop and remove old container
             docker stop quizapp || true
             docker rm quizapp || true
-
-            # Remove old image
             docker rmi quizapp || true
 
             # Build and run new container
             docker build --no-cache -t quizapp .
             docker run -d -p 80:80 --name quizapp quizapp
-
