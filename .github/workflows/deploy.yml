@@ -23,7 +23,7 @@ jobs:
             --exclude='.git*' \
             --exclude='deployKey' \
             -e "ssh -o StrictHostKeyChecking=no -i ./deployKey" \
-            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }}:/home/ubuntu/CI-CD-WebApp-AutoDeploy
+            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }}:/home/ubuntu
 
       - name: Restart Docker container
         uses: appleboy/ssh-action@v0.1.6
