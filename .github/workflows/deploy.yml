@@ -47,7 +47,7 @@ jobs:
             fi
 
             # Navigate to app folder
-            cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/QuizApp
+            cd /home/ubuntu/CI-CD-WebApp-AutoDeploy/'Quiz App'
 
             # Stop and remove old container
             docker stop quizapp || true
