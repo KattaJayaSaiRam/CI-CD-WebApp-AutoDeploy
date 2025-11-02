@@ -4,16 +4,14 @@ on:
     types:
       - completed
 
-name: CD Pipeline
-
-env:
-  EC2_USER: ${{ secrets.EC2_USER }}
-  EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-
 jobs:
-    deploy:
+  run_on_EC2:  
+    name: Deploy only after CI passes
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    env:
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
 
     steps:
       - name: Deploy to EC2
