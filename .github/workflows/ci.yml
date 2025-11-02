@@ -76,9 +76,6 @@ jobs:
       - name: Trigger EC2 Deployment
         run: echo "Ready to deploy to EC2"
 
- trigger_CD:
-    runs-on: ubuntu-latest
-    steps:
       - name: Trigger deploy.yml via REST API
         if: success()
         run: |
