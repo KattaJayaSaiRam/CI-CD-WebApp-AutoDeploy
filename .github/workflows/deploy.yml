@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows:["Branch-Aware CI Pipeline"]
+    workflows: ["Branch-Aware CI Pipeline"]
     types:
       - completed
 
