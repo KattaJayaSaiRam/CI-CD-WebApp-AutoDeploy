@@ -41,9 +41,10 @@ jobs:
       #Unit Tests
       - name: Run JavaScript unit tests
         working-directory: Quiz App
+        shell: bash
         run: |
           npm install
-          npx jest
+          npx --no-install jest
 
       #Week 5: Lint JavaScript (recursive)
       - name: Lint JavaScript
