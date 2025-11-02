@@ -38,6 +38,11 @@ jobs:
           npm install -g stylelint
           stylelint "**/*.css" || true
 
+      - name: Run JavaScript unit tests
+        run: |
+          npm install
+          npm test
+
       #Week 5: Lint JavaScript (recursive)
       - name: Lint JavaScript
         run: |
