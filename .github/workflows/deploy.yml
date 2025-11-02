@@ -1,10 +1,10 @@
-name: CD Pipeline
-
 on:
   workflow_run:
     workflows: ["Branch-Aware CI Pipeline"]
     types:
       - completed
+
+name: CD Pipeline
 
 env:
   EC2_USER: ${{ secrets.EC2_USER }}
