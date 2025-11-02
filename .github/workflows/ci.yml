@@ -38,11 +38,12 @@ jobs:
           npm install -g stylelint
           stylelint "**/*.css" || true
 
+      #Unit Tests
       - name: Run JavaScript unit tests
         working-directory: Quiz App
         run: |
           npm install
-          npm test
+          npx jest
 
       #Week 5: Lint JavaScript (recursive)
       - name: Lint JavaScript
