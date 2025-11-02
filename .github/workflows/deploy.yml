@@ -2,7 +2,7 @@ on:
   workflow_run:
     workflows: ["Branch-Aware CI Pipeline"]
     types:
-      - completed
+      - in_progress
 
 jobs:
 
