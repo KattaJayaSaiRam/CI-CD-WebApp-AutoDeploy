@@ -1,9 +1,10 @@
-name: Deploy to EC2 on dev push
+name: CD Pipeline
 
 on:
-  push:
-    branches:
-      - dev
+  workflow_run:
+    workflows:["Branch-Aware CI Pipeline"]
+    types:
+      - completed
 
 env:
   EC2_USER: ${{ secrets.EC2_USER }}
@@ -11,9 +12,13 @@ env:
 
 jobs:
   sync-and-deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
+      - name: Deploy to EC2
+        run: echo "Deploying only after CI passes"
+
       - name: Checkout dev branch
         uses: actions/checkout@v2
         with:
