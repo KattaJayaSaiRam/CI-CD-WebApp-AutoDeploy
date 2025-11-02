@@ -72,3 +72,7 @@ jobs:
       - name: Deploy from dev
         if: github.ref == 'refs/heads/dev'
         run: echo "Deploying from dev branch"
+ 
+      - name: Trigger EC2 Deployment
+        run: echo "Ready to deploy to EC2"
+
