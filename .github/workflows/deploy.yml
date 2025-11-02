@@ -5,9 +5,9 @@ on:
       - completed
 
 jobs:
-  run_on_EC2:  
+  if: ${{ github.event.workflow_run.conclusion == 'success' }}
+   run_on_EC2:  
     name: Deploy only after CI passes
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       EC2_USER: ${{ secrets.EC2_USER }}
