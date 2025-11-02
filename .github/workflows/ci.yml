@@ -44,7 +44,8 @@ jobs:
         shell: bash
         run: |
           npm install
-          npx --no-install jest
+          chmod +x ./node_modules/.bin/jest
+          ./node_modules/.bin/jest
 
       #Week 5: Lint JavaScript (recursive)
       - name: Lint JavaScript
