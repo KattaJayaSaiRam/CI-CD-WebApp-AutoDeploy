@@ -39,6 +39,7 @@ jobs:
           stylelint "**/*.css" || true
 
       - name: Run JavaScript unit tests
+        working-directory: Quiz App
         run: |
           npm install
           npm test
