@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+
+name: Promote dev to main
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v2
+        with:
+          ref: dev
+
+      - name: Create PR from dev to main
+        run: |
+          gh pr create --base main --head dev --title "Auto-promote dev to main" --body "Triggered after CI and deploy success"
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
